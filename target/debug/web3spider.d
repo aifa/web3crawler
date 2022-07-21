@@ -1,1 +1,0 @@
-/Users/aifa/projects/web3crawler/target/debug/web3spider: /Users/aifa/projects/web3crawler/spider/src/configuration.rs /Users/aifa/projects/web3crawler/spider/src/lib.rs /Users/aifa/projects/web3crawler/spider/src/page.rs /Users/aifa/projects/web3crawler/spider/src/utils.rs /Users/aifa/projects/web3crawler/spider/src/website.rs /Users/aifa/projects/web3crawler/src/main.rs

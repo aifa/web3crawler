@@ -1,2 +1,0 @@
-cargo:rustc-env=TYPENUM_BUILD_CONSTS=/Users/aifa/projects/web3crawler/target/debug/build/typenum-3c21d5aa929e50f1/out/consts.rs
-cargo:rustc-env=TYPENUM_BUILD_OP=/Users/aifa/projects/web3crawler/target/debug/build/typenum-3c21d5aa929e50f1/out/op.rs
