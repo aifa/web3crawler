@@ -1,0 +1,14 @@
+/Users/aifa/projects/web3crawler/target/debug/deps/mac-6b00d629bf9e2061.rmeta: /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/lib.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/test.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/mem.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/format.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/syntax_ext.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/matches.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/inspect.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/cfg.rs
+
+/Users/aifa/projects/web3crawler/target/debug/deps/libmac-6b00d629bf9e2061.rlib: /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/lib.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/test.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/mem.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/format.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/syntax_ext.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/matches.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/inspect.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/cfg.rs
+
+/Users/aifa/projects/web3crawler/target/debug/deps/mac-6b00d629bf9e2061.d: /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/lib.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/test.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/mem.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/format.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/syntax_ext.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/matches.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/inspect.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/cfg.rs
+
+/Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/lib.rs:
+/Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/test.rs:
+/Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/mem.rs:
+/Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/format.rs:
+/Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/syntax_ext.rs:
+/Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/matches.rs:
+/Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/inspect.rs:
+/Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/mac-0.1.1/src/cfg.rs:

@@ -1,0 +1,13 @@
+/Users/aifa/projects/web3crawler/target/debug/deps/url-3850b3e932190e07.rmeta: /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/url-2.2.2/src/lib.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/url-2.2.2/src/host.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/url-2.2.2/src/origin.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/url-2.2.2/src/parser.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/url-2.2.2/src/path_segments.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/url-2.2.2/src/slicing.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/url-2.2.2/src/quirks.rs
+
+/Users/aifa/projects/web3crawler/target/debug/deps/liburl-3850b3e932190e07.rlib: /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/url-2.2.2/src/lib.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/url-2.2.2/src/host.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/url-2.2.2/src/origin.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/url-2.2.2/src/parser.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/url-2.2.2/src/path_segments.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/url-2.2.2/src/slicing.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/url-2.2.2/src/quirks.rs
+
+/Users/aifa/projects/web3crawler/target/debug/deps/url-3850b3e932190e07.d: /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/url-2.2.2/src/lib.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/url-2.2.2/src/host.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/url-2.2.2/src/origin.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/url-2.2.2/src/parser.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/url-2.2.2/src/path_segments.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/url-2.2.2/src/slicing.rs /Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/url-2.2.2/src/quirks.rs
+
+/Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/url-2.2.2/src/lib.rs:
+/Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/url-2.2.2/src/host.rs:
+/Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/url-2.2.2/src/origin.rs:
+/Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/url-2.2.2/src/parser.rs:
+/Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/url-2.2.2/src/path_segments.rs:
+/Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/url-2.2.2/src/slicing.rs:
+/Users/aifa/.cargo/registry/src/github.com-1ecc6299db9ec823/url-2.2.2/src/quirks.rs:
