@@ -17,7 +17,7 @@ pub struct Page {
 
 /// Macro to get all media selectors that should be ignored for link gathering.
 macro_rules! media_ignore_selector {
-    () => ( 
+    () => (
         concat!(
         r#":not([href$=".ico"]):not([href$=".png"]):not([href$=".jpg"]):not([href$=".jpeg"]):not([href$=".svg"]):not([href$=".webp"]):not([href$=".gif"]):not([href$=".pdf"]):not([href$=".tiff"])"#, // images
         r#":not([href$=".wav"]):not([href$=".mp3"]):not([href$=".mp4"]):not([href$=".ogg"]):not([href$=".webm"])"#, // videos

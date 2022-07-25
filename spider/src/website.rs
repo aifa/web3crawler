@@ -116,7 +116,7 @@ impl<'a> Website<'a> {
 
         client
     }
-    
+
     /// Start to crawl website with async parallelization
     pub fn crawl(&mut self) {
         let client = self.setup();
@@ -228,7 +228,7 @@ impl<'a> Website<'a> {
         let delay = self.configuration.delay;
         let delay_enabled = delay > 0;
         let on_link_find_callback = self.on_link_find_callback;
-        
+
         // crawl while links exists
         while !self.links.is_empty() {
             let (tx, rx): (Sender<Page>, Receiver<Page>) = channel();
@@ -269,12 +269,12 @@ impl<'a> Website<'a> {
             self.links = &new_links - &self.links_visited;
         }
     }
-    
+
     /// return `true` if URL:
     ///
     /// - is not already crawled
     /// - is not blacklisted
-    /// - is not forbidden in robot.txt file (if parameter is defined)  
+    /// - is not forbidden in robot.txt file (if parameter is defined)
     pub fn is_allowed(&self, link: &String) -> bool {
         if self.links_visited.contains(link) {
             return false;
@@ -292,7 +292,7 @@ impl<'a> Website<'a> {
 
     /// return `true` if URL:
     ///
-    /// - is not forbidden in robot.txt file (if parameter is defined)  
+    /// - is not forbidden in robot.txt file (if parameter is defined)
     pub fn is_allowed_robots(&self, link: &String) -> bool {
         self.robot_file_parser.can_fetch("*", link)
     }
@@ -336,7 +336,7 @@ fn scrape() {
     assert_eq!(
         website.get_pages()[0].get_html().is_empty(),
         false
-    );  
+    );
 }
 
 #[test]
@@ -414,7 +414,7 @@ fn not_crawl_blacklist_regex() {
 #[cfg(feature = "ua_generator")]
 fn randomize_website_agent() {
     let website: Website = Website::new("https://choosealicense.com");
-    
+
     assert_eq!(website.configuration.user_agent.is_empty(), false);
 }
 
