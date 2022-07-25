@@ -1,5 +1,5 @@
 
-*/target/**
+target/
 .DS_Store
 .repl_history
 artifacts/facade.wasm
@@ -12,3 +12,5 @@ Cargo.lock
 crawler-service/Cargo.lock
 crawler-service/target/CACHEDIR.TAG
 *.lock
+crawler-service/Cargo.lock
+crawler-service/Cargo.lock
