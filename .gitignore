@@ -6116,3 +6116,5 @@ spider/target/wasm32-wasi/debug/deps/want-1c8dbfa8353ba175.d
 spider/target/wasm32-wasi/debug/deps/wasi-953de5daea9d655d.d
 spider/target/wasm32-wasi/debug/deps/wasi-f24004160588f1ab.d
 Cargo.lock
+*.lock
+tempfile
