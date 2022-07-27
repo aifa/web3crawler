@@ -13,6 +13,16 @@ use reqwest::header::CONNECTION;
 use reqwest::header;
 use tokio::time::sleep;
 
+extern crate leveldb_minimal;
+extern crate serde_json;
+
+use leveldb_minimal::database::Database;
+use leveldb_minimal::kv::KV;
+use leveldb_minimal::options::{Options,WriteOptions,ReadOptions};
+use std::collections::hash_map::DefaultHasher;
+use std::hash::Hasher;
+use std::path::Path;
+use serde_json::{json};
 /// Represents a website to crawl and gather all links.
 /// ```rust
 /// use spider::website::Website;
@@ -23,7 +33,6 @@ use tokio::time::sleep;
 ///     // do something
 /// }
 /// ```
-#[derive(Debug)]
 pub struct Website<'a> {
     /// configuration properties for website.
     pub configuration: Configuration,
@@ -39,13 +48,48 @@ pub struct Website<'a> {
     pub on_link_find_callback: fn(String) -> String,
     /// Robot.txt parser holder.
     robot_file_parser: RobotFileParser<'a>,
+    //level DB database for URLs
+    url_database: Database,
+    // level DB database for html content
+    content_database: Database,
 }
 
 type Message = HashSet<String>;
 
 impl<'a> Website<'a> {
+
     /// Initialize Website object with a start link to crawl.
     pub fn new(domain: &str) -> Self {
+        let content_path = Path::new("./webpages");
+        let link_path = Path::new("./links");
+
+        let mut content_options = Options::new();
+        content_options.create_if_missing = true;
+
+        let mut url_options = Options::new();
+        url_options.create_if_missing = true;
+
+        let storage_setup = || -> (Database, Database) {
+            let content_path = Path::new("./webpages");
+            let link_path = Path::new("./links");
+
+            let mut content_options = Options::new();
+            content_options.create_if_missing = true;
+
+            let mut url_options = Options::new();
+            url_options.create_if_missing = true;
+            let content_database = match Database::open(content_path, content_options) {
+                Ok(db) => { db },
+                Err(e) => { panic!("failed to open database: {:?}", e) }
+            };
+            let url_database = match Database::open(link_path, url_options) {
+                Ok(db) => { db },
+                Err(e) => { panic!("failed to open database: {:?}", e) }
+            };
+            (url_database, content_database)
+        };
+        let (url_store, content_store) = storage_setup();
+
         Self {
             configuration: Configuration::new(),
             links_visited: HashSet::new(),
@@ -54,6 +98,9 @@ impl<'a> Website<'a> {
             links: HashSet::from([format!("{}/", domain)]),
             on_link_find_callback: |s| s,
             domain: domain.to_owned(),
+            content_database: content_store,
+            url_database: url_store
+
         }
     }
 
@@ -113,7 +160,6 @@ impl<'a> Website<'a> {
     fn setup(&mut self) -> Client {
         self.configure_robots_parser();
         let client = self.configure_http_client(None);
-
         client
     }
 
@@ -263,13 +309,39 @@ impl<'a> Website<'a> {
             rx.into_iter().for_each(|page| {
                 let links = page.links(self.configuration.subdomains, self.configuration.tld);
                 new_links.extend(links);
-                self.pages.push(page);
+                self.store_page(&page);
+                //self.pages.push(page);
             });
 
             self.links = &new_links - &self.links_visited;
         }
     }
+    pub fn store_page(&self, page: &Page){
+        let mut links: Vec<String> = vec![];
+        let page_links = page.links(false, false);
+        links.extend(page_links);
 
+        let page_json = json!({
+            "url": page.get_url(),
+            "links": links,
+            "html": page.get_html(),
+        });
+        //let ipfs_link=content_to_ipfs(&serde_json::to_string(&page_json).unwrap()).await;
+
+        let write_opts = WriteOptions::new();
+        let mut hash_factory = DefaultHasher::new();
+        hash_factory.write(page.get_url().as_bytes());
+        let url_hash = hash_factory.finish();
+        match self.content_database.put(write_opts, url_hash.to_string().as_bytes(), &serde_json::to_string(&page_json).unwrap().as_bytes()) {
+            Ok(_) => { () },
+            Err(e) => { panic!("failed to write to content database: {:?}", e) }
+        };
+
+        match self.url_database.put(write_opts, url_hash.to_string().as_bytes(), page.get_url().as_bytes()) {
+            Ok(_) => { () },
+            Err(e) => { panic!("failed to write to url database: {:?}", e) }
+        };
+    }
     /// return `true` if URL:
     ///
     /// - is not already crawled

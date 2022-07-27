@@ -6,9 +6,20 @@ use spider::website::Website;
 use std::io::{self, Write};
 use ipfs_api::{IpfsApi, IpfsClient};
 use std::fs::File;
+use std::path::Path;
 use actix_web::{post, App, HttpServer, Responder, web};
 use tokio::sync::mpsc;
 use threadpool::ThreadPool;
+use std::io::Cursor;
+
+extern crate leveldb_minimal;
+
+use leveldb_minimal::database::Database;
+use leveldb_minimal::kv::KV;
+use leveldb_minimal::options::{Options,WriteOptions,ReadOptions};
+
+use std::collections::hash_map::DefaultHasher;
+use std::hash::Hasher;
 
 struct AppState{
       tx: tokio::sync::mpsc::Sender<String>,
@@ -27,6 +38,7 @@ async fn main() -> std::io::Result<()> {
             println!("GOT = {}", message);
                pool.execute(move || {
                    let ipns_link=scrape(message);
+                   println!("Done with:{:?}", ipns_link );
                });
          };
         pool.join();
@@ -48,7 +60,10 @@ async fn crawl_and_scrape(body: String, data: web::Data<AppState>) -> impl Respo
    let input=body.clone();
    let tx = data.tx.clone();
    tokio::spawn(async move {
-       tx.send(body).await;
+       match tx.send(body).await{
+           Ok(body) => eprintln!("sent for scraping: {:?}", body),
+           Err(e) => eprintln!("error accessing the scraping queue: {}", e),
+       };
    });
 
   format!("Received for processing {}:", input)
@@ -63,7 +78,30 @@ fn write_to_file(temp_file: String, content: &[u8]) -> std::io::Result<()> {
     Ok(())
 }
 
-async fn  write_to_ipfs(file_name : &'static str) -> String {
+async fn  content_to_ipfs(content : &'static str) -> String {
+    tracing_subscriber::fmt::init();
+    eprintln!("connecting to localhost:5001...");
+    let client = IpfsClient::default();
+    let mut file_hash=String::from("");
+    let data = Cursor::new(content);
+
+    match client.version().await {
+        Ok(version) => eprintln!("version: {:?}", version.version),
+        Err(e) => eprintln!("error getting version: {}", e),
+    }
+
+    match client.add(data).await {
+        Ok(res) => {
+            eprintln!("added json file: {:?}", res.hash);
+            file_hash=res.hash;
+        }
+        Err(e) => eprintln!("error adding json file: {}", e),
+    };
+
+    return file_hash.to_string();
+}
+
+async fn  file_to_ipfs(file_name : &'static str) -> String {
     tracing_subscriber::fmt::init();
     eprintln!("connecting to localhost:5001...");
     let client = IpfsClient::default();
@@ -111,8 +149,27 @@ fn scrape(url: String) -> io::Result<String>{
     configure(&mut website);
 
     website.scrape();
+/*
+    let content_path = Path::new("./webpages");
+    let link_path = Path::new("./links");
 
-    let mut page_objects: Vec<_> = vec![];
+    let mut content_options = Options::new();
+    content_options.create_if_missing = true;
+
+    let mut url_options = Options::new();
+    url_options.create_if_missing = true;
+
+    let content_database = match Database::open(content_path, content_options) {
+        Ok(db) => { db },
+        Err(e) => { panic!("failed to open database: {:?}", e) }
+    };
+
+    let link_database = match Database::open(link_path, url_options) {
+        Ok(db) => { db },
+        Err(e) => { panic!("failed to open database: {:?}", e) }
+    };
+
+    let mut hasher = DefaultHasher::new();
 
     for page in website.get_pages() {
         let mut links: Vec<String> = vec![];
@@ -124,17 +181,23 @@ fn scrape(url: String) -> io::Result<String>{
             "links": links,
             "html": page.get_html(),
         });
+        //let ipfs_link=content_to_ipfs(&serde_json::to_string(&page_json).unwrap()).await;
 
-        page_objects.push(page_json);
+        let write_opts = WriteOptions::new();
+        hasher.write(page.get_url().as_bytes());
+        let url_hash = hasher.finish();
+        match content_database.put(write_opts, url_hash.to_string().as_bytes(), &serde_json::to_string(&page_json).unwrap().as_bytes()) {
+            Ok(_) => { () },
+            Err(e) => { panic!("failed to write to content database: {:?}", e) }
+        };
+
+        match link_database.put(write_opts, url_hash.to_string().as_bytes(), page.get_url().as_bytes()) {
+            Ok(_) => { () },
+            Err(e) => { panic!("failed to write to url database: {:?}", e) }
+        };
     }
-
-    let j = serde_json::to_string_pretty(&page_objects).unwrap();
-
-    write_to_file(temp_file.to_string(), j.as_bytes());
-    //write json outpot to ipfs
-    let published_filename = write_to_ipfs(temp_file);
-
-    Ok(temp_file.to_string())
+*/
+    Ok(format!("{} was succefully scraped", url))
 }
 
 fn configure(website: &mut Website){
@@ -144,5 +207,5 @@ fn configure(website: &mut Website){
     website.configuration.delay = 250; // Defaults to 250 ms
     website.configuration.concurrency = 10; // Defaults to number of cpus available * 4
     website.configuration.user_agent = "myapp/version".to_string(); // Defaults to spider/x.y.z, where x.y.z is the library version
-    website.on_link_find_callback = |s| { println!("link target: {}", s); s }; // Callback to run on each link find
+    //website.on_link_find_callback = |s| { println!("link target: {}", s); s }; // Callback to run on each link find
 }
